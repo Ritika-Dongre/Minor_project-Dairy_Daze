@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nearby Customers</title>
+  <link rel="stylesheet" href="{% static 'css/sub_productstyles.css' %}">
+</head>
+<body>
+  <div class="main-area" style="padding: 40px;">
+    <h1>Nearby Customers</h1>
+
+    {% if customers %}
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Zip Code</th>
+            <th>City</th>
+            
+            <th>State</th>
+            <th>Total Orders</th>
+            <th>Last Order Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in customers %}
+            <tr>
+              <td>{{ c.full_name }}</td>
+              <td>{{ c.user.email }}</td>
+              <td>{{ c.mobile }}</td>
+              <td>{{ c.zipcode }}</td>
+              <td>{{ c.city }}</td>
+              <td>{{ c.state }}</td>
+              <td>{{ c.total_orders }}</td>
+              <td>{{ c.last_order|date:"M d, Y" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No customers found in your area.</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'subbranch:sub_index' %}">← Back to Dashboard</a>
+  </div>
+</body>
+</html>

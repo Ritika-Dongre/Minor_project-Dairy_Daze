@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DairyDaze - Settings</title>
+    <link rel="stylesheet" href="{% static 'css/product1.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .settings-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .settings-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .settings-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .danger-zone {
+            background-color: #fff5f5;
+            border: 1px solid #feb2b2;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .danger-zone h3 {
+            color: #e53e3e;
+            margin-bottom: 1rem;
+        }
+
+        .delete-account-btn {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .delete-account-btn:hover {
+            background-color: #c53030;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-actions button {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .confirm-delete {
+            background-color: #e53e3e;
+            color: white;
+        }
+
+        .cancel-delete {
+            background-color: #718096;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    {% include 'nav.html' %}
+
+    <div class="settings-container">
+        <h2>Account Settings</h2>
+
+        <div class="settings-section">
+            <h3>Profile Information</h3>
+            <p>Email: {{ user.email }}</p>
+            <p>Username: {{ user.username }}</p>
+        </div>
+
+        <div class="settings-section danger-zone">
+            <h3>Warning!</h3>
+            <p>This account will be permanently deleted, please be certain.</p>
+            <button class="delete-account-btn" onclick="showDeleteConfirmation()">
+                Delete Account
+            </button>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h3>Delete Account</h3>
+            <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="cancel-delete" onclick="hideDeleteConfirmation()">Cancel</button>
+                <button class="confirm-delete" onclick="deleteAccount()">Delete Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDeleteConfirmation() {
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function hideDeleteConfirmation() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        function deleteAccount() {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch('{% url "customer:delete_account" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '{% url "customer:productpage" %}';
+                } else {
+                    alert('Error deleting account. Please try again.');
+                    hideDeleteConfirmation();
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

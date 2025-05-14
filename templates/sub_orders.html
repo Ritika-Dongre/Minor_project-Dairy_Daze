@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orders - Dairy Daze</title>
+  <link rel="stylesheet" href="{% static 'css/sub_productstyles.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Dairy Daze</h2>
+      <ul>
+        <li><a href="{% url 'subbranch:sub_index' %}"><i class="fa fa-table-columns"></i> Dashboard</a></li>
+        <li><a href="{% url 'subbranch:sub_products' %}"><i class="fa fa-box"></i> Products</a></li>
+       
+        <li><a href="{% url 'subbranch:sub_orders' %}" class="active"><i class="fa fa-cart-shopping"></i> Orders</a></li>
+        <li><a href="{% url 'subbranch:sub_reviews' %}"><i class="fa fa-comments"></i> Reviews</a></li>
+        <li><a href="{% url 'subbranch:sub_notifications' %}"><i class="fa fa-bell"></i> Notifications</a></li>
+        <li><a href="{% url 'subbranch:sub_profile' %}"><i class="fa fa-user"></i> Profile</a></li>
+        <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Area -->
+    <div class="main-area">
+      <header class="header">
+        <div class="status">
+          <span class="status-indicator"></span>
+          <span>Online</span>
+        </div>
+        <button class="toggle-btn">Toggle Sidebar</button>
+        <div class="user-icons">
+          <i class="fa fa-user"></i>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <!-- Orders Table -->
+      <main class="content">
+        <h1>Orders</h1>
+        <div class="orders-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#ORD1001</td>
+                <td>Ravi Sharma</td>
+                <td>Milk</td>
+                <td>2 L</td>
+                <td>₹100</td>
+                <td><span class="status-tag delivered">Delivered</span></td>
+                <td>2025-04-06</td>
+              </tr>
+              <tr>
+                <td>#ORD1002</td>
+                <td>Pooja Mehta</td>
+                <td>Butter</td>
+                <td>1 kg</td>
+                <td>₹400</td>
+                <td><span class="status-tag pending">Pending</span></td>
+                <td>2025-04-06</td>
+              </tr>
+              <tr>
+                <td>#ORD1003</td>
+                <td>Akash Jain</td>
+                <td>Paneer</td>
+                <td>500 g</td>
+                <td>₹150</td>
+                <td><span class="status-tag cancelled">Cancelled</span></td>
+                <td>2025-04-05</td>
+              </tr>
+              <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

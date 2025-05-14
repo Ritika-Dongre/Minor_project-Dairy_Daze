@@ -1,0 +1,67 @@
+/* payment_status.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #343a40;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  th, td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  th {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f1f1f1;
+  }
+  
+  .status {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+  
+  .paid {
+    color: #28a745;
+    background-color: #d4edda;
+  }
+  
+  .unpaid {
+    color: #dc3545;
+    background-color: #f8d7da;
+  }
+  
+  p {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+  }
+  

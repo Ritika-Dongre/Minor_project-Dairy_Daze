@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payout Details - Dairy Daze</title>
+  <link rel="stylesheet" href="{% static 'css/sub_style.css' %}">
+</head>
+<body>
+  <div class="main-content">
+    <h1>Payout Summary</h1>
+
+    <div class="summary-card">
+      <h3>Total Earnings</h3>
+      <p>₹{{ total_earnings }}</p>
+    </div>
+
+    <table class="payout-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for payout in payouts %}
+        <tr>
+          <td>{{ payout.item.product.name }}</td>
+          <td>₹{{ payout.amount }}</td>
+          <td>{{ payout.date|date:"M d, Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No payouts yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

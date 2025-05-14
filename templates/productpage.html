@@ -1,0 +1,369 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dairy_Daze</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to External CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h2>DairyDaze</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="{% url 'customer:aboutus' %}">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+        <div class="icons">
+            <a href="{% url 'userauths:register' %}"><img src="{% static 'images/pic/add.png' %}" alt="Register"></a>
+             <a href="{% url 'userauths:login' %}"> <img src="{% static 'images/pic/enter.png' %}" alt="Login"></a> 
+            <div class="dropdown">
+                <button class="dropdown-button" onclick="toggleDropdown()">Login</button>
+                <div class="dropdown-content">
+                    <a href="{% url 'subbranch:sub_login' %}">Sub Branch</a>
+                    <a href="{% url 'userauths:login' %}">Customer</a>
+                </div>
+            </div>
+            <!--<a href="user.html"> <img src="{% static 'images/pic/icons8-user-30.png" alt="User"></a>-->
+        </div>
+    </nav>
+
+    <!-- Hero Section (Single Image) -->
+    <div class="image-container">
+        <img src="{% static 'images/pic/Namaste.jpg' %}" alt="Pravarsha Dairy Products">
+        <br><br>
+    </div>
+
+    <!-- Featured Products Section (Home Page) -->
+    <section id="home">
+        <h2>Explore Our Fresh & Healthy Dairy Products</h2>
+        <div class="featured-products">
+            <div class="products-section">
+                <div class="product-container">
+                    <div class="product">
+                        <img src="https://pravarshaindustries.com/storage/subcategories/RoGa67tN2sfhnQNoXXKpQgZdZMkXJQWdwk8LEuiW.png" alt="Milk">
+                        <p>Milk</p>
+                    </div>
+                    <div class="product">
+                        <img src="https://pravarshaindustries.com/storage/subcategories/Zqwvc1A4oZQSr3lLpMOlX8odAYtjXbOnyueUdcG1.png" alt="Ghee">
+                        <p>Ghee</p>
+                    </div>
+                    <div class="product">
+                        <img src="https://pravarshaindustries.com/storage/subcategories/fSwtVeBVIXuSjbOx708FKP5mF3ehgCZVlS3wuUGJ.png" alt="Paneer">
+                        <p>Paneer</p>
+                    </div>
+                    <div class="product">
+                        <img src="https://pravarshaindustries.com/storage/subcategories/LosArkXiOtsKDygwuXk6lEHmsOMvlh3NME6WcRQy.png" alt="Curd">
+                        <p>Curd</p>
+                    </div>
+                    <div class="product">
+                        <img src="https://pravarshaindustries.com/storage/subcategories/9oAAGs0MVsEGL5R3N4miPzPE9YR3Nhadwf9vvR5O.png" alt="Buttermilk">
+                        <p>Buttermilk</p>
+                    </div>
+                    <div class="product">
+                        <img src="https://pravarshaindustries.com/storage/subcategories/DcI6c6kqlRksHXcAE3kASEP9uUeZHF4pdguDMA1K.webp" alt="Combo">
+                        <p>Combo Products</p>
+                    </div>
+                </div>
+          
+            
+            
+
+            
+
+        </div>
+    </section>
+
+    <!-- Products Page (All Products without Filter) -->
+    <section id="products">
+        <h2>Our Dairy Product Range</h2>
+
+        <!-- All Products -->
+        <div class="products-container">
+            
+            <!-- Milk -->
+            <div class="product-card">
+                <img src="{% static 'images/pic/purecow milk' %}" alt="Milk">
+                <h3>Pure Cow Milk</h3>
+                <p>500 ml</p>
+                <p class="price">₹30</p>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+
+            <!-- Dahi -->
+            <div class="product-card">
+                <img src="{% static 'images/pic/curd2' %}" alt="Dahi">
+                <h3>Fresh Dahi</h3>
+                <p>500 ml</p>
+                <p class="price">₹28</p>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="{% static 'images/pic/buttermilk' %}" alt="Buttermilk">
+                <h3>Refreshing Buttermilk</h3>
+                <p>500 ml</p>
+                <p class="price">₹20</p>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+
+            <!-- Paneer -->
+            <!-- <div class="product-card">
+                <img src="../pic/paneer" alt="Paneer">
+                <h3>Premium Paneer</h3>
+                <p>200 gm</p>
+                <p class="price">₹70</p>
+                <button class="subscribe-btn">Subscribe</button>
+            </div> -->
+
+            <!-- Lassi -->
+            <!-- <div class="product-card">
+                <img src="../pic/lassi" alt="Lassi">
+                <h3>Sweet Lassi</h3>
+                <p>300 ml</p>
+                <p class="price">₹25</p>
+                <button class="subscribe-btn">Subscribe</button>
+            </div> -->
+
+            <div class="product-card">
+                <img src="{% static 'images/pic/paneer' %}" alt="Paneer">
+                <h3>Premium Paneer</h3>
+                <p>200 gm</p>
+                <p class="price">₹70</p>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+            <!-- Lassi -->
+            <div class="product-card">
+                <img src="{% static 'images/pic/lassi' %}" alt="Lassi">
+                <h3>Sweet Lassi</h3>
+                <p>300 ml</p>
+                <p class="price">₹25</p>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+            
+
+            <!-- Ghee -->
+            <div class="product-card">
+                <img src="{% static 'images/pic/gheee2' %}" alt="Ghee">
+                <h3>Pure Cow Ghee</h3>
+                <p>1 Liter</p>
+                <p class="price">₹500</p>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+
+        </div>
+    </section>
+    <section id="features" class="features-container">
+        <h2 class="features-heading">Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-container">
+                    <img src="{% static 'images/pic/onlineshop.png' %}" alt="Shop Online">
+                </div>
+                <h3>Shop Online</h3>
+                <p>Enjoy our range of dairy products, organic milk and butter as well as mouth-watering shrikhand from our online store.</p>
+            </div>
+    
+            <div class="feature-card">
+                <div class="icon-container">
+                    <img src="{% static 'images/pic/payment.png' %}" alt="Secure Payment">
+                </div>
+                <h3>Secure Payment</h3>
+                <p>Whatever your online mode of payment be, our trusted payment gateway partners keep your transaction details confidential.</p>
+            </div>
+    
+            <div class="feature-card">
+                <div class="icon-container">
+                    <img src="{% static 'images/pic/productdelivery.png' %}" alt="On-Time Delivery">
+                </div>
+                <h3>On-Time Delivery</h3>
+                <p>Simply order and get all your daily essentials delivered to your doorstep. Our team provides transportation to meet your needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>How we make it work for you</h2>
+        <div class="how-it-works-container">
+            <div class="left-content">
+                <img src="{% static 'images/pic/company.png' %}" alt="Delivery Icon" class="icon">
+                <div class="text-content">
+                    <h3>Modify and Order Your Milk & groceries till 12 midnight for next day early morning 7am delivery</h3>
+                    <p>We source Milk, Groceries, Fruits, Yogurts, Eggs, Vegetables, and all other essentials fresh from the best farms in India. 
+                        After quality testing at farms and then in our labs, we deliver all your daily needs without preservatives or mixing.</p>
+                    <p>Order your fresh milk and groceries and have them delivered daily. It's easy and convenient, saving you time and effort.</p>
+                    <p>Set up a subscription plan for milk and groceries to suit your daily needs...</p>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="right-content">
+                <div class="feature-item">
+                    <img src="{% static 'images/pic/shopping-trolley.png' %}" alt="Order Icon">
+                    <p>Order fresh milk & groceries daily</p>
+                </div>
+                <div class="feature-item">
+                    <img src="{% static 'images/pic/subscribe.png' %}" alt="Subscription Icon">
+                    <p>Set a customized subscription plan</p>
+                </div>
+                <div class="feature-item">
+                    <img src="{% static 'images/pic/calendar.png' %}" alt="Vacation Icon">
+                    <p>Use vacation mode for skipping deliveries</p>
+                </div>
+                <div class="feature-item">
+                    <img src="{% static 'images/pic/gift.png' %}" alt="Offers Icon">
+                    <p>Grab exciting offers for big saving</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-section about">
+                <h3>ABOUT US</h3>
+                <hr>
+                <p>At DairyDaze, each day is filled with providing new inspiration to consumers, to create fresh trends in dairy consumption. Each of our products plays a central role in people's lives as they consume them all day long. We are highly passionate about making milk moments a source of delight and inspiration.</p>
+            </div>
+            
+            <div class="footer-section links">
+                <h3>QUICK LINKS</h3>
+                <hr>
+                <div class="links-container">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        
+                        <li><a href="#">Refund Policy</a></li>
+                        
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Quality</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="footer-section subscribe">
+                <h3>SUBSCRIBE TO US</h3>
+                <hr>
+                <p>Give us your email ID in the box below and never miss an update from us.</p>
+                <input type="email" placeholder="Your email">
+                <button>Send</button>
+                <div class="social-icons">
+                    <a href="#"><img src="../pic/icons8-facebook-30.png' %}" alt="Facebook"></a>
+                    <a href="#"><img src="../pic/icons8-twitter-30.png' %}" alt="Twitter"></a>
+                    <a href="#"><img src="../pic/icons8-instagram-30.png' %}" alt="Instagram"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright 2019 - DairyDaze. All Rights Reserved</p>
+            <img src="footer-landscape.png' %}" alt="Footer Landscape">
+        </div>
+    </footer>
+    
+    
+    
+    
+    
+    <!-- ✅ Load AOS (Animate On Scroll) Script First -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+
+<!-- ✅ GSAP and ScrollTrigger (Make sure GSAP is included in your project) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+<!-- ✅ Custom JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // ✅ Initialize AOS
+        AOS.init({
+            duration: 1000,
+            offset: 100
+        });
+
+        // ✅ Enable ScrollTrigger Plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ✅ Fade-in effect for sections
+        gsap.utils.toArray("section").forEach(section => {
+            gsap.from(section, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // ✅ Purity Section Slide-up Animation
+        gsap.from(".purity-card", {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: ".purity-section",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+       
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        gsap.from(".feature-card", {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            stagger: 0.3,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: ".features-container",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+    
+</script>
+
+<script>
+function promptLogin() {
+    alert('Please login or register to subscribe to our products!');
+    window.location.href = "{% url 'userauths:login' %}";
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click event to all subscribe buttons
+    document.querySelectorAll('.subscribe-btn').forEach(button => {
+        button.addEventListener('click', promptLogin);
+    });
+});
+</script>
+
+</body>
+</html>

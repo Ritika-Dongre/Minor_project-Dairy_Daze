@@ -1,0 +1,139 @@
+/* === Sidebar === */
+.sidebar {
+    width: 220px;
+    background-color: #111;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+    transform: translateX(0);
+  }
+  
+  .sidebar.active {
+    transform: translateX(-100%); /* hide on toggle */
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+  }
+  
+  .sidebar ul li {
+    margin: 14px 0;
+  }
+  
+  .sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+  
+  .sidebar ul li a:hover,
+  .sidebar ul li a.active {
+    background-color: #3EB0B4;
+  }
+
+.edit-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .edit-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .edit-input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  .edit-input:focus {
+    border-color: #3eb0b4;
+    box-shadow: 0 0 5px rgba(62, 176, 180, 0.5);
+  }
+  
+  .save-btn {
+    background-color: #3eb0b4;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: fit-content;
+    align-self: center;
+  }
+  
+  .save-btn:hover {
+    background-color: #349fa2;
+  }
+
+  .back-btn {
+    margin-top: 15px;
+    background-color: #b5b6b6;
+    color: black;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .back-btn:hover {
+    background-color: #a1a1a1;
+  }
+  
+  .toast {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #3eb0b4;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 14px;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    z-index: 1000;
+  }
+  
+  @keyframes fadein {
+    from { opacity: 0; bottom: 0; }
+    to { opacity: 1; bottom: 30px; }
+  }
+  
+  @keyframes fadeout {
+    from { opacity: 1; bottom: 30px; }
+    to { opacity: 0; bottom: 0; }
+  }
+  

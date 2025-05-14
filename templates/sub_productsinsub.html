@@ -1,0 +1,27 @@
+<!-- subbranch/templates/subbranch/products.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Products</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 40px; }
+        .product-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .product { border: 1px solid #ccc; padding: 15px; border-radius: 8px; background: #f0f0f0; }
+        .product h3 { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <h2>Products in Your Subbranch</h2>
+    <div class="product-list">
+        {% for product in products %}
+            <div class="product">
+                <h3>{{ product.name }}</h3>
+                <p>Price: ₹{{ product.price }}</p>
+                <p>Stock: {{ product.quantity }}</p>
+            </div>
+        {% empty %}
+            <p>No products available.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Listing Page</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Product Showcase</h1>
+    </header>
+    
+    <section class="product-list">
+        <div class="product">
+            <img src="product1.jpg" alt="Classic Rice">
+            <h2>Purasure Classic Rice</h2>
+            <p class="price"><span class="original-price">&#8377;260</span> &#8377;220.00</p>
+            <button onclick="addToCart('Classic Rice', 220)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="product2.jpg" alt="Premium Rice">
+            <h2>Purasure Premium Rice</h2>
+            <p class="price"><span class="original-price">&#8377;1060</span> &#8377;749.00</p>
+            <button onclick="addToCart('Premium Rice', 749)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="product3.jpg" alt="Tibar Rice">
+            <h2>Purasure Tibar Rice</h2>
+            <p class="price"><span class="original-price">&#8377;790</span> &#8377;599.00</p>
+            <button onclick="addToCart('Tibar Rice', 599)">Add to Cart</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Purasure. All rights reserved.</p>
+    </footer>
+</body>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #fffafc;
+        text-align: center;
+    }
+
+    header {
+        background: #4CAF50;
+        color: white;
+        padding: 1em 0;
+    }
+
+    .product-list {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .product {
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        width: 300px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .product h2 {
+        font-size: 1.5em;
+    }
+
+    .price {
+        font-size: 1.2em;
+    }
+
+    .original-price {
+        text-decoration: line-through;
+        color: #999;
+    }
+
+    button {
+        background: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #45a049;
+    }
+</style>
+
+<script>
+    function addToCart(productName, price) {
+        alert(`${productName} added to cart for ₹${price}!`);
+    }
+</script>
+</html>

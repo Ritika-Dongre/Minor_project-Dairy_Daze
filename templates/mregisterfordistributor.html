@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributor Register</title>
+    <link rel="stylesheet" href="{% static 'css/mregisterfordistributor.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <form action="action_page.php">
+            <div class="container">
+                <h1>DairyDaze</h1>
+                <h2>Sub-Branch Sign Up</h2>
+                <p>Please fill in this form to create an account.</p>
+                <hr>
+
+                <label for="branch-name"><b>Branch Name</b></label>
+                <input type="text" placeholder="Enter Branch Name" name="branch-name" id="branch-name" required>
+
+                <label for="branch-id"><b>Branch ID</b></label>
+                <input type="number" placeholder="Enter Branch ID" name="branch-id" id="branch-id" required>
+
+                <label for="manager-name"><b>Branch Manager</b></label>
+                <input type="text" placeholder="Enter Manager's Name" name="manager-name" id="manager-name" required>
+
+                <label for="contact"><b>Contact Number</b></label>
+                <input type="tel" placeholder="Enter Contact Number" name="contact" id="contact" required>
+
+                <div class="form-group">
+                    <button type="button" id="send-otp-button">Send OTP</button>
+                </div>
+
+                <!-- OTP Verification Section -->
+                <div class="otp-section">
+                    <label for="otp"><b>Enter OTP</b></label>
+                    <input type="text" id="otp" name="otp" placeholder="Enter OTP">
+
+                    <div class="form-group">
+                        <button type="button" id="verify-otp-button">Verify OTP</button>
+                    </div>
+                </div>
+
+                <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+                <button type="submit" class="registerbtn">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to handle OTP flow
+        document.getElementById("send-otp-button").addEventListener("click", function () {
+            const phone = document.getElementById("contact").value;
+            if (phone) {
+                alert("OTP sent to " + phone); // Replace with backend API call
+                document.querySelector(".otp-section").style.display = "block";
+            } else {
+                alert("Please enter a valid phone number.");
+            }
+        });
+
+        document.getElementById("verify-otp-button").addEventListener("click", function () {
+            const otp = document.getElementById("otp").value;
+            if (otp.trim() === "1234") { // Replace "1234" with backend OTP validation
+                alert("Phone number verified successfully!");
+            } else {
+                alert("Invalid OTP. Please try again.");
+            }
+        });
+    </script>
+</body>
+</html>

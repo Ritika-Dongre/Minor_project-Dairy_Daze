@@ -1,0 +1,94 @@
+templates/payment_failed.html->{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DairyDaze - Payment Failed</title>
+    <link rel="stylesheet" href="{% static 'css/product1.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .failed-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .failed-icon {
+            color: #e74c3c;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .failed-title {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .failed-message {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .action-button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .primary-button {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .primary-button:hover {
+            background-color: #c0392b;
+        }
+
+        .secondary-button {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .secondary-button:hover {
+            background-color: #bdc3c7;
+        }
+
+        .support-info {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+
+    <div class="failed-container">
+        <i class="fas fa-times-circle failed-icon"></i>
+        <h1 class="failed-title">Payment Failed</h1>
+        <p class="failed-message">We're sorry, but your payment could not be processed at this time. Please try again or use a different payment method.</p>
+        <div class="action-buttons">
+            <a href="{% url 'store:cart' %}" class="action-button primary-button">Try Again</a>
+            <a href="{% url 'customer:product1' %}" class="action-button secondary-button">Continue Shopping</a>
+        </div>
+        <div class="support-info">
+            <p>If you continue to experience issues, please contact our support team.</p>
+            <p>Email: support@dairydaze.com</p>
+        </div>
+    </div>
+</body>
+</html>

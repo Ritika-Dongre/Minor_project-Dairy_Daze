@@ -1,0 +1,82 @@
+
+        * { box-sizing: border-box; }
+
+        body {
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 30px;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url(static/images/pic/milkonmobile.png);
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .wrapper {
+            border-radius: 12px;
+            width: 450px;
+            background: transparent;
+            border: 4px solid rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        input[type=text], input[type=number], input[type=password], input[type=tel] {
+            width: 100%;
+            padding: 7px;
+            margin: 3px 0 14px 0;
+            display: inline-block;
+            border-radius: 5px;
+            background-color: transparent;
+        }
+
+        input:focus {
+            background-color: #ffffff;
+            outline: none;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .otp-section {
+            display: none;
+        }
+
+        .success-message {
+            color: green;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        button.registerbtn {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px;
+            margin: 7px 0;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button.registerbtn:hover {
+            background-color: #0056b3;
+        }

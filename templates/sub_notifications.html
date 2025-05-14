@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subbranch Notifications - Dairy Daze</title>
+  <link rel="stylesheet" href="{% static 'css/sub_style.css' %}">
+</head>
+<body>
+
+  <div class="main-content">
+    <h1>Notifications</h1>
+    <div class="notifications-list">
+      {% for notif in notifications %}
+  <div class="notification {% if not notif.seen %}unread{% endif %}">
+    <p><strong>{{ notif.type }}</strong> — {{ notif.date|date:"M d, Y H:i" }}</p>
+    {% if notif.order %}
+      <p>Related to Order: {{ notif.order.order_id }}</p>
+    {% endif %}
+    <p>Status: {% if notif.seen %}✅ Read{% else %}🔔 Unread{% endif %}</p>
+  </div>
+{% empty %}
+  <p>No notifications available.</p>
+{% endfor %}
+    </div>
+  </div>
+
+</body>
+</html>

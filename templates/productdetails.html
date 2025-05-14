@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="{% static 'css/productdetails.css' %}">
+    <script defer src="{% static 'js/productdetails.js' %}"></script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="" alt="DairyDaze">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="product.html">Home</a> / <a href="productpage.html">Products</a> / <span id="breadcrumb-title"></span>
+    </div>
+
+    <div class="product-container">
+        <div class="product-image">
+            <img src="../pic/farmfreshmilk.png" alt="Farm Fresh Cow Milk">
+        </div>
+        <div class="product-details">
+            <h1>Farm Fresh Homogenised Cow Milk</h1>
+            <p class="price"><span class="old-price">&#8377;38</span> <span class="new-price">&#8377;37</span> / 500ml</p>
+            <p class="stock">in stock</p>
+            <p class="delivery-info">Add before 9:00 PM for next day delivery.</p>
+            <button class="add-address">ADD ADDRESS</button>
+        </div>
+    </div>
+
+
+    <a href="product.html" class="back-home">← Go Back</a>
+
+</body>
+</html>

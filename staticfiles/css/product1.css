@@ -1,0 +1,191 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Nav Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+.nav-links li {
+    margin: 0 15px;
+}
+.nav-links a {
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+.nav-links a:hover {
+    color: #007bff;
+}
+
+/* Icons */
+.icons {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+.icons a img {
+    width: 35px;
+    height: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.icons a img:hover {
+    transform: scale(1.15);
+    opacity: 0.8;
+}
+
+/* Category Filters */
+.category-filters {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+.filter {
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    background-color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.filter.active {
+    background-color: #61b846;
+    color: white;
+    border-color: #61b846;
+}
+
+/* Products */
+.product-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+.product-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 290px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.product-card img {
+    width: 130px;
+    height: 120px;
+}
+.product-card h3 {
+    font-size: 16px;
+    margin: 10px 0;
+}
+.product-card .stock {
+    color: green;
+    font-weight: bold;
+}
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+/* "In Stock" Button Styling */
+.stock-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: green;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s ease;
+}
+.stock-btn:hover {
+    background-color: #0ef801;
+}
+
+/* 🔽 Dropdown Styling Fixes */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.dropdown img {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 45px; /* Appears below the icon */
+    right: 0;
+    background-color: white;
+    min-width: 160px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.dropdown-menu.show {
+    display: block;
+}
+.dropdown-menu ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+.dropdown-menu ul li {
+    padding: 10px 20px;
+}
+.dropdown-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+.dropdown-menu ul li:hover {
+    background-color: #f2f2f2;
+}
+
+.wishlist-form {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.wishlist-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.wishlist-btn img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease;
+}
+
+.wishlist-btn:hover img {
+    transform: scale(1.2);
+}

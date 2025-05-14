@@ -1,0 +1,140 @@
+templates/payment_gateway.html->{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DairyDaze - Payment Gateway</title>
+    <link rel="stylesheet" href="{% static 'css/product1.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        .payment-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .order-summary {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .payment-button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .payment-button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    {% include 'nav.html' %}
+
+    <div class="payment-container">
+        <h2>Order Summary</h2>
+        <div class="order-summary">
+            <div class="order-details">
+                <span>Order ID:</span>
+                <span>{{ order.order_id }}</span>
+            </div>
+            <div class="order-details">
+                <span>Total Amount:</span>
+                <span>₹{{ order.total }}</span>
+            </div>
+        </div>
+
+        <button id="pay-button" class="payment-button">Pay Now</button>
+    </div>
+
+    <script>
+        document.getElementById('pay-button').onclick = function(e) {
+            e.preventDefault();
+            
+            // Debug information
+            console.log('Payment configuration:', {
+                key: "{{ razorpay_key_id }}",
+                amount: "{{ order_amount }}",
+                currency: "{{ currency }}",
+                order_id: "{{ razorpay_order_id }}",
+                name: "{{ request.user.get_full_name }}"
+            });
+
+            var options = {
+                "key": "{{ razorpay_key_id }}",
+                "amount": "{{ order_amount }}", // Amount in paise
+                "currency": "{{ currency }}",
+                "name": "DairyDaze",
+                "description": "Order Payment",
+                "order_id": "{{ razorpay_order_id }}",
+                "handler": function (response) {
+                    console.log('Payment success response:', response);
+                    // On successful payment
+                    var form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = "{% url 'store:razorpay_payment_verify' order.order_id %}";
+                    
+                    // Add CSRF token
+                    var csrfInput = document.createElement('input');
+                    csrfInput.type = 'hidden';
+                    csrfInput.name = 'csrfmiddlewaretoken';
+                    csrfInput.value = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                    form.appendChild(csrfInput);
+
+                    // Add Razorpay response parameters
+                    for(let key in response) {
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = response[key];
+                        form.appendChild(input);
+                    }
+
+                    document.body.appendChild(form);
+                    form.submit();
+                },
+                "prefill": {
+                    "name": "{{ request.user.get_full_name }}",
+                    "email": "{{ request.user.email }}"
+                },
+                "theme": {
+                    "color": "#2ecc71"
+                },
+                "modal": {
+                    "ondismiss": function() {
+                        console.log('Checkout form closed');
+                    }
+                }
+            };
+
+            try {
+                var rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (response){
+                    console.error('Payment failed:', response.error);
+                    alert('Payment failed: ' + response.error.description);
+                });
+                rzp.open();
+            } catch (error) {
+                console.error('Error initializing Razorpay:', error);
+                alert('Could not initialize payment. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>

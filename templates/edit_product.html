@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Product - Dairy Daze</title>
+  <link rel="stylesheet" href="{% static 'css/sub_productstyles.css' %}">
+</head>
+<body>
+
+<div class="main-area" style="padding: 40px; max-width: 600px; margin: auto;">
+  <h1>Edit Product</h1>
+
+  <form method="POST" enctype="multipart/form-data" class="create-product-form">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" style="padding: 10px 20px; font-size: 16px; background: #28a745; color: white; border: none; border-radius: 5px;">
+      Save Changes
+    </button>
+  </form>
+
+  <div style="margin-top: 20px;">
+    <a href="{% url 'subbranch:sub_products' %}">← Back to Products</a>
+  </div>
+</div>
+
+</body>
+</html>

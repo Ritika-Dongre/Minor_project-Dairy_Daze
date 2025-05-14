@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Product</title>
+  <link rel="stylesheet" href="sub_productstyles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Dairy Daze</h2>
+      <ul>
+        <li><a href="sub_index.html"><i class="fa fa-table-columns"></i> Dashboard</a></li>
+        <li><a href="sub_products.html"><i class="fa fa-box"></i> Products</a></li>
+        <li><a href="sub_create-product.html" class="active"><i class="fa fa-plus-circle"></i> Create Product</a></li>
+        <li><a href="sub_orders.html"><i class="fa fa-cart-shopping"></i> Orders</a></li>
+        <li><a href="sub_reviews.html"><i class="fa fa-comments"></i> Reviews</a></li>
+        <li><a href="sub_notifications.html"><i class="fa fa-bell"></i> Notifications</a></li>
+        <li><a href="sub_profile.html"><i class="fa fa-user"></i> Profile</a></li>
+        <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Area -->
+    <div class="main-area">
+      <header class="header">
+        <div class="status">
+          <span class="status-indicator"></span>
+          <span>Online</span>
+        </div>
+        <button class="toggle-btn">Toggle Sidebar</button>
+        <div class="user-icons">
+          <i class="fa fa-user"></i>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <!-- Create Product Form -->
+      <main class="content">
+        <h1>Create New Product</h1>
+        <form class="create-product-form">
+          <label for="productName">Product Name</label>
+          <input type="text" id="productName" name="productName" placeholder="Enter product name" required />
+
+          <label for="price">Price (₹)</label>
+          <input type="number" id="price" name="price" placeholder="Enter price" required />
+
+          <label for="stock">Stock</label>
+          <input type="number" id="stock" name="stock" placeholder="Enter stock quantity" required />
+
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="4" placeholder="Enter product description"></textarea>
+
+          <label for="image">Product Image</label>
+          <input type="file" id="image" name="image" accept="image/*" />
+
+          <button type="submit" class="edit">Add Product</button>
+        </form>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

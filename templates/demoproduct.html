@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .breadcrumb {
+            padding: 15px 20px;
+            background-color: #fff;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        .breadcrumb a {
+            text-decoration: none;
+            color: #007BFF;
+            margin-right: 10px;
+        }
+        .product-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background-color: white;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .product-image img {
+            max-width: 300px;
+            border-radius: 10px;
+        }
+        .product-details {
+            margin-left: 30px;
+        }
+        .price {
+            font-size: 18px;
+            color: #333;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: red;
+        }
+        .new-price {
+            font-weight: bold;
+            color: #28a745;
+        }
+        .stock {
+            color: green;
+            font-weight: bold;
+        }
+        .delivery-info {
+            color: red;
+            font-size: 14px;
+        }
+        .add-address {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .add-address:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="{% static 'images/pic/logo.png' %}" alt="Logo" class="logo">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="breadcrumb">
+        <a href="#" class="back-btn">&#8592;</a>
+        <span>Home / Products / Farm Fresh Homogenised Cow Milk</span>
+    </div>
+
+    <div class="product-container">
+        <div class="product-image">
+            <img src="milk-product.png" alt="Farm Fresh Cow Milk">
+        </div>
+        <div class="product-details">
+            <h1>Farm Fresh Homogenised Cow Milk</h1>
+            <p class="price"><span class="old-price">&#8377;38</span> <span class="new-price">&#8377;37</span> / 500ml</p>
+            <p class="stock">in stock</p>
+            <p class="delivery-info">Add before 9:00 PM for next day delivery.</p>
+            <button class="add-address">ADD ADDRESS</button>
+        </div>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Product</title>
+  <link rel="stylesheet" href="{% static 'css/sub_productstyles.css' %}">
+</head>
+<body>
+  <div class="main-area" style="padding: 20px;">
+    <h1 style="margin-bottom: 20px;">Add New Product</h1>
+    <p>Orders: {{ product.total_orders }}</p>
+
+    <div class="create-product-form">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="edit">Add Product</button>
+      </form>
+    </div>
+    <br>
+    <a href="{% url 'subbranch:sub_products' %}" class="edit" style="width: fit-content; margin-top: 20px; display: inline-block;">← Back to Products</a>
+  </div>
+</body>
+</html>

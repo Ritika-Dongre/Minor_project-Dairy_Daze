@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dairy Daze - Sub Branch Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/sub_style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+{{ revenue_chart_labels|json_script:"revenue-labels" }}
+{{ revenue_chart_data|json_script:"revenue-data" }}
+{{ pie_labels|json_script:"pie-labels" }}
+{{ pie_values|json_script:"pie-values" }}
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button id="sidebarToggle">&#9776;</button>
+      <div class="brand">
+        <h1>Dairy Daze</h1>
+        <p>Sub-Branch: {{ subbranch.store_name }}</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div id="branchStatus" class="status open">🟢 Open</div>
+      <button id="toggleStatus">Toggle Status</button>
+      <li><a href="{% url 'subbranch:sub_notifications' %}"><i class="fa fa-bell"></i></a></li>
+      <h3>{{ notif_count }}</h3>  <!-- Unread notif count -->
+
+      <li><a href="{% url 'subbranch:sub_profile' %}"><i class="fa fa-user"></i></a></li>
+      <li><a href="{% url 'subbranch:logout' %}"><i class="fa fa-power-off"></i> Logout</a></li>
+
+    </div>
+  </header>
+
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <h2>Dairy Daze</h2>
+      <ul>
+        <li><a href="{% url 'subbranch:sub_index' %}"><i class="fa fa-table-columns"></i> Dashboard</a></li>
+        <li><a href="{% url 'subbranch:sub_products' %}"><i class="fa fa-box"></i> Products</a></li>
+        <li><a href="{% url 'subbranch:sub_orders' %}"><i class="fa fa-cart-shopping"></i> Orders</a></li>
+        <li><a href="{% url 'subbranch:sub_customers' %}"><i class="fa fa-users"></i> Nearby Customers</a></li>
+
+        <li><a href="{% url 'subbranch:sub_reviews' %}"><i class="fa fa-comments"></i> Reviews</a></li>
+        <li><a href="{% url 'subbranch:sub_notifications' %}"><i class="fa fa-bell"></i> Notifications</a></li>
+        <li><a href="{% url 'subbranch:sub_profile' %}"><i class="fa fa-user"></i> Profile</a></li>
+        <li><a href="{% url 'subbranch:logout' %}"><i class="fa fa-power-off"></i> Logout</a></li>
+      </ul>
+    </aside>    
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Dashboard Overview</h1>
+
+      <div class="stats">
+        <div class="stat-card">
+          <i class="fa fa-cart-shopping"></i>
+          <p>Total Orders</p>
+          <h3>{{ total_orders }}</h3>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-calendar-week"></i>
+          <p>Weekly Orders</p>
+          <h3>{{ weekly_orders }}</h3>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-dollar-sign"></i>
+          <p>Total Revenue</p>
+          <h3>₹{{ total_revenue }}</h3>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-calendar-check"></i>
+          <p>Weekly Revenue</p>
+          <h3>₹{{ weekly_revenue }}</h3>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-users"></i>
+          <p>Customers Today</p>
+          <h3>{{ customers_today }}</h3>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-user-group"></i>
+          <p>Unique Customers</p>
+          <h3>{{ unique_customers }}</h3>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-sack-dollar"></i>
+          <p>Total Payouts</p>
+          <h3>₹{{ total_earnings }}</h3>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-hourglass-half"></i>
+          <p>Pending Payouts</p>
+          <h3>{{ pending_payouts }}</h3>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-bell"></i>
+          <p>Notifications</p>
+          <h3>{{ notif_count }}</h3>
+        </div>
+      </div>
+      <h2>Revenue (Last 7 Days)</h2>
+<div class="chart-container">
+  <canvas id="revenueChart"></canvas>
+</div>
+
+<h2>Payout Breakdown by Method</h2>
+<div class="chart-container" style="margin-bottom: 40px;">
+  <canvas id="payoutChart"></canvas>
+</div>
+      <h2>Products (Dairy)</h2>
+      <div class="products">
+        {% for product in products %}
+        <div class="product-card">
+          <img src="{{ product.image.url|default:'https://via.placeholder.com/100' }}" alt="{{ product.name }}">
+          <div class="product-info">
+            <h3>{{ product.name }}</h3>
+            <p>Price: ₹{{ product.price }}</p>
+            <!-- You can fetch actual order count via annotation later -->
+            <p>Orders: {{ product.total_orders }}</p>
+
+            <div class="actions">
+              <a href="{% url 'subbranch:edit_product' product.pk %}"><button class="edit">Edit</button></a>
+              <a href="{% url 'subbranch:delete_product' product.pk %}" onclick="return confirm('Are you sure you want to delete this product?');">
+                <button class="delete">Delete</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p>No products found.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    const revenueLabels = JSON.parse(document.getElementById('revenue-labels').textContent);
+    const revenueData = JSON.parse(document.getElementById('revenue-data').textContent);
+    const pieLabels = JSON.parse(document.getElementById('pie-labels').textContent);
+    const pieData = JSON.parse(document.getElementById('pie-values').textContent);
+  
+    // Line Chart
+    var revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    var revenueChart = new Chart(revenueCtx, {
+      type: 'line',
+      data: {
+        labels: revenueLabels,
+        datasets: [{
+          label: 'Revenue ₹',
+          data: revenueData,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  
+    // Pie Chart
+    var payoutCtx = document.getElementById('payoutChart').getContext('2d');
+    var payoutChart = new Chart(payoutCtx, {
+      type: 'pie',
+      data: {
+        labels: pieLabels,
+        datasets: [{
+          label: 'Payouts',
+          data: pieData,
+          backgroundColor: [
+            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    });
+  </script>
+  <script src="{% static 'js/sub_script.js' %}"> </script>
+  
+</body>
+
+</html>
+

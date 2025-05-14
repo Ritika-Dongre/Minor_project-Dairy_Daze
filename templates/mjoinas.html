@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us</title>
+    <link rel="stylesheet" href="{% static 'css/mjoinas.css' %}">
+    <style>
+        .custom-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-button:hover {
+            background-color: #010b15;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Want to join as...</h1>
+        <div class="buttons">
+            <!-- <a href="./mregisterforcustomer.html" class="btn">Customer</a>
+            <a href="./mregisterfordistributor.html" class="btn">Distributor</a> -->
+            <a href="{% url 'customer:mregisterforcustomer' %}" class="custom-button">Customer</a>
+            <a href="{% url 'subbranch:mregisterfordistributor' %}" class="custom-button">Distributor</a>
+            
+        </div>
+    </div>
+</body>
+</html>
+

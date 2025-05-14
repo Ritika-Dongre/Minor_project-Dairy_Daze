@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile - Dairy Daze</title>
+  <link rel="stylesheet" href="{% static 'css/sub_productstyles.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Dairy Daze</h2>
+    <ul>
+      <li><a href="{% url 'subbranch:sub_index' %}"><i class="fa fa-table-columns"></i> Dashboard</a></li>
+      <li><a href="{% url 'subbranch:sub_products' %}"><i class="fa fa-box"></i> Products</a></li>
+      <li><a href="{% url 'subbranch:sub_customers' %}"><i class="fa fa-box"></i> Nearby Customers</a></li>
+      <li><a href="{% url 'subbranch:sub_orders' %}"><i class="fa fa-cart-shopping"></i> Orders</a></li>
+      <li><a href="{% url 'subbranch:sub_reviews' %}"><i class="fa fa-comments"></i> Reviews</a></li>
+      <li><a href="{% url 'subbranch:sub_notifications' %}"><i class="fa fa-bell"></i> Notifications</a></li>
+      <li><a href="{% url 'subbranch:sub_profile' %}" class="active"><i class="fa fa-user"></i> Profile</a></li>
+      <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="main-area">
+    <header class="header">
+      <div class="status">
+        <span class="status-indicator"></span>
+        <span>Online</span>
+      </div>
+      <button class="toggle-btn">Toggle Sidebar</button>
+      <div class="user-icons">
+        <i class="fa fa-user"></i>
+        <button class="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content">
+      <h1>My Profile</h1>
+      <div class="profile-card">
+
+        <!-- ✅ Profile Picture Upload Form -->
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="profile-pic">
+            {% if subbranch.image %}
+              <img id="profileImage" src="{{ subbranch.image.url }}" alt="Profile Picture"  width="200">
+            {% else %}
+              <img id="profileImage" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Default Image">
+            {% endif %}
+
+            {{ form.image }}
+            <br>
+            <button type="submit" class="btn small">Update Picture</button>
+          </div>
+        </form>
+
+        <div class="profile-info" id="profileDisplay">
+          <p><strong>Store Name:</strong> {{ subbranch.store_name }}</p>
+          <p><strong>Email:</strong> {{ subbranch.email }}</p>
+          <p><strong>Role:</strong> Subbranch Manager</p>
+          <p><strong>Subbranch Branch Id:</strong> {{ subbranch.subbranch_id }}</p>
+          <p><strong>City:</strong> {{ subbranch.city }}</p>
+          <p><strong>State:</strong> {{ subbranch.state }}</p>
+          <p><strong>Zip Code:</strong> {{ subbranch.zip_code }}</p>
+          <p><strong>Joined On:</strong> {{ subbranch.date }}</p>
+          <button class="edit-profile-btn" onclick="toggleEditForm()">Edit Profile</button>
+        </div>
+
+        <!-- Hidden Edit Form -->
+        <form class="edit-profile-form" id="editForm" style="display: none;" onsubmit="saveProfile(event)">
+          <label>
+            Name:
+            <input type="text" id="nameInput" value="{{ subbranch.store_name }}" required />
+          </label>
+          <label>
+            Email:
+            <input type="email" id="emailInput" value="{{ subbranch.email }}" required />
+          </label>
+          <label>
+            City:
+            <input type="text" id="cityInput" value="{{ subbranch.city }}" required />
+          </label>
+          <label>
+            State:
+            <input type="text" id="stateInput" value="{{ subbranch.state }}" required />
+          </label>
+          <label>
+            Zip Code:
+            <input type="text" id="zipInput" value="{{ subbranch.zip_code }}" required />
+          </label>
+          <button type="submit">Save</button>
+          <button type="button" onclick="toggleEditForm()">Cancel</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="{% static 'js/editscript.js' %}"></script>  
+</body>
+</html> 

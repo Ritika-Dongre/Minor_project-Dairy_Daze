@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DairyDaze - My Subscriptions</title>
+    <link rel="stylesheet" href="{% static 'css/product1.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .subscription-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .subscription-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subscription-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .subscription-details {
+            padding: 1rem 0;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .quantity {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .subscription-status {
+            margin: 1rem 0;
+        }
+
+        .status-value {
+            font-weight: bold;
+        }
+
+        .status-value.active {
+            color: #28a745;
+        }
+
+        .status-value.paused {
+            color: #dc3545;
+        }
+
+        .toggle-subscription-btn {
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-subscription-btn.active {
+            background-color: #dc3545;
+        }
+
+        .toggle-subscription-btn.paused {
+            background-color: #28a745;
+        }
+
+        .no-subscriptions {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    {% include 'nav.html' %}
+
+    <div class="container">
+        <h2 class="mb-4">My Subscriptions</h2>
+        
+        <div class="subscription-grid">
+            {% for subscription in subscriptions %}
+            <div class="subscription-card" data-subscription-id="{{ subscription.id }}">
+                <img src="{{ subscription.product.image.url }}" alt="{{ subscription.product.name }}" class="subscription-image">
+                <div class="subscription-details">
+                    <h3>{{ subscription.product.name }}</h3>
+                    <p class="price">₹{{ subscription.product.price }} per unit</p>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn minus" onclick="updateQuantity('{{ subscription.id }}', -1)">-</button>
+                        <span class="quantity">{{ subscription.quantity }}</span>
+                        <button class="quantity-btn plus" onclick="updateQuantity('{{ subscription.id }}', 1)">+</button>
+                    </div>
+                    <div class="subscription-status mt-3">
+                        <span class="status-label">Status:</span>
+                        <span class="status-value {% if subscription.is_active %}active{% else %}paused{% endif %}">
+                            {{ subscription.is_active|yesno:"Active,Paused" }}
+                        </span>
+                    </div>
+                    <button class="toggle-subscription-btn {% if subscription.is_active %}active{% else %}paused{% endif %}"
+                            onclick="toggleSubscription('{{ subscription.id }}')">
+                        {{ subscription.is_active|yesno:"Pause,Resume" }} Subscription
+                    </button>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-subscriptions">
+                <p>You don't have any active subscriptions.</p>
+                <a href="{% url 'customer:product1' %}" class="btn btn-primary">Browse Products</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function toggleDropdown() {
+            document.getElementById('profileDropdown').classList.toggle('hidden');
+        }
+
+        async function toggleSubscription(subscriptionId) {
+            try {
+                const response = await fetch('{% url "customer:toggle_subscription" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({ subscription_id: subscriptionId })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    const card = document.querySelector(`[data-subscription-id="${subscriptionId}"]`);
+                    const statusValue = card.querySelector('.status-value');
+                    const toggleBtn = card.querySelector('.toggle-subscription-btn');
+
+                    if (data.is_active) {
+                        statusValue.textContent = 'Active';
+                        statusValue.classList.remove('paused');
+                        statusValue.classList.add('active');
+                        toggleBtn.textContent = 'Pause Subscription';
+                        toggleBtn.classList.remove('paused');
+                        toggleBtn.classList.add('active');
+                    } else {
+                        statusValue.textContent = 'Paused';
+                        statusValue.classList.remove('active');
+                        statusValue.classList.add('paused');
+                        toggleBtn.textContent = 'Resume Subscription';
+                        toggleBtn.classList.remove('active');
+                        toggleBtn.classList.add('paused');
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error updating subscription status. Please try again.');
+            }
+        }
+
+        async function updateQuantity(subscriptionId, change) {
+            const card = document.querySelector(`[data-subscription-id="${subscriptionId}"]`);
+            const quantitySpan = card.querySelector('.quantity');
+            const currentQuantity = parseInt(quantitySpan.textContent);
+            const newQuantity = currentQuantity + change;
+
+            if (newQuantity < 1) return;
+
+            try {
+                const response = await fetch('{% url "customer:update_subscription_quantity" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({
+                        subscription_id: subscriptionId,
+                        quantity: newQuantity
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    quantitySpan.textContent = newQuantity;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error updating quantity. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html> 

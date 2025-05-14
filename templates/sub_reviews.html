@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reviews - Dairy Daze</title>
+  <link rel="stylesheet" href="{% static 'css/sub_productstyles.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Dairy Daze</h2>
+      <ul>
+        <li><a href="{% url 'subbranch:sub_index' %}"><i class="fa fa-table-columns"></i> Dashboard</a></li>
+        <li><a href="{% url 'subbranch:sub_products' %}"><i class="fa fa-box"></i> Products</a></li>
+       
+        <li><a href="{% url 'subbranch:sub_orders' %}" class="active"><i class="fa fa-cart-shopping"></i> Orders</a></li>
+        <li><a href="{% url 'subbranch:sub_reviews' %}"><i class="fa fa-comments"></i> Reviews</a></li>
+        <li><a href="{% url 'subbranch:sub_notifications' %}"><i class="fa fa-bell"></i> Notifications</a></li>
+        <li><a href="{% url 'subbranch:sub_profile' %}"><i class="fa fa-user"></i> Profile</a></li>
+        <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Area -->
+    <div class="main-area">
+      <header class="header">
+        <div class="status">
+          <span class="status-indicator"></span>
+          <span>Online</span>
+        </div>
+        <button class="toggle-btn">Toggle Sidebar</button>
+        <div class="user-icons">
+          <i class="fa fa-user"></i>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <!-- Reviews Content -->
+      <main class="content">
+        <h1>Customer Reviews</h1>
+        <div class="review-grid">
+          <div class="review-card">
+            <div class="review-header">
+              <h3>Ravi Sharma</h3>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+            </div>
+            <p>"Best quality milk. Delivery is always on time!"</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-header">
+              <h3>Pooja Mehta</h3>
+              <div class="stars">⭐⭐⭐⭐</div>
+            </div>
+            <p>"Loved the paneer! So fresh and soft."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-header">
+              <h3>Akash Jain</h3>
+              <div class="stars">⭐⭐⭐</div>
+            </div>
+            <p>"Buttermilk was good, but delivery was a bit late."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-header">
+              <h3>Neha Yadav</h3>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+            </div>
+            <p>"Butter and curd are just amazing! Great service."</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

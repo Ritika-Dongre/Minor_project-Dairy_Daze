@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bank Info - Dairy Daze</title>
+  <link rel="stylesheet" href="{% static 'css/sub_style.css' %}">
+</head>
+<body>
+  <div class="main-content">
+    <h1>Bank Account Info</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save</button>
+    </form>
+
+    {% if account %}
+    <div class="account-summary">
+      <h3>Current Info:</h3>
+      <p><strong>Bank:</strong> {{ account.bank_name }}</p>
+      <p><strong>Account #:</strong> {{ account.account_number }}</p>
+      <p><strong>Type:</strong> {{ account.account_type }}</p>
+      <p><strong>PayPal:</strong> {{ account.paypal_address }}</p>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

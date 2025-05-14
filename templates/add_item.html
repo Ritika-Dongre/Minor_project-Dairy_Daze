@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Product - DairyDaze</title>
+    <link rel="stylesheet" href="{% static 'css/add_item.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Product</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+</body>
+</html>
